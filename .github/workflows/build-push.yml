@@ -21,7 +21,7 @@ env:
 
 jobs:
   build:
-    runs-on: ${{ matrix.platform == 'linux/riscv64' && 'riscv64_runner' }}
+    runs-on: ${{ matrix.platform == 'linux/riscv64' }}
     strategy:
       matrix:
         include:
