@@ -21,8 +21,7 @@ env:
 
 jobs:
   build:
-    runs-on: ${{ matrix.platform == 'linux/arm64' && 'arm64_runner' || 'ubuntu-latest' }}
-    if: github.repository == 'langgenius/dify'
+    runs-on: ${{ matrix.platform == 'linux/arm64' && 'arm64_runner' || matrix.platform == 'linux/riscv64' && 'riscv64_runner' || 'ubuntu-latest' }}
     strategy:
       matrix:
         include:
@@ -34,6 +33,10 @@ jobs:
             image_name_env: "DIFY_API_IMAGE_NAME"
             context: "api"
             platform: linux/arm64
+          - service_name: "build-api-riscv64"
+            image_name_env: "DIFY_API_IMAGE_NAME"
+            context: "api"
+            platform: linux/riscv64
           - service_name: "build-web-amd64"
             image_name_env: "DIFY_WEB_IMAGE_NAME"
             context: "web"
@@ -42,6 +45,10 @@ jobs:
             image_name_env: "DIFY_WEB_IMAGE_NAME"
             context: "web"
             platform: linux/arm64
+          - service_name: "build-web-riscv64"
+            image_name_env: "DIFY_WEB_IMAGE_NAME"
+            context: "web"
+            platform: linux/riscv64
 
     steps:
       - name: Prepare
